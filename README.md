@@ -4,12 +4,21 @@
 
 ## 실행
 
-Node.js 22.12 이상을 권장합니다. 이 프로젝트는 Node.js 26.8.1에서 검증했습니다.
+Node.js 20.19 이상 또는 22.12 이상이 필요합니다(`package.json`의 `engines`). 22.12 이상을 권장하며, 이 프로젝트는 Node.js 26.8.1에서 검증했습니다.
 
 ```sh
-npm install
 npm run dev
 ```
+
+`dev`·`build`·`preview`·`test` 실행 전에 `scripts/ensure-env.mjs`가 자동으로 실행됩니다. Node.js 버전이 맞지 않으면 안내 메시지와 함께 중단하고, `node_modules`가 없거나 `package.json`/`package-lock.json`이 바뀐 경우 `npm install`을 자동으로 실행합니다. 따라서 clone 직후에도 `npm run dev`만으로 실행할 수 있습니다. `.npmrc`의 `engine-strict=true` 설정으로 지원하지 않는 Node.js 버전에서는 `npm install`도 실패합니다.
+
+### Linux / WSL
+
+Windows·macOS·Linux·WSL에서 같은 방법으로 실행합니다. Vite와 Tailwind는 OS별 네이티브 바이너리를 사용하므로, `node_modules`가 다른 OS용으로 설치되어 있으면(예: Windows 폴더를 WSL에서 실행) 자동으로 다시 설치합니다. 설치는 `npm ci`로 수행하므로 npm 버전이 달라도 `package-lock.json`이 변경되지 않습니다.
+
+- WSL에서는 Windows의 Node.js가 아닌 WSL 안에 설치한 Node.js(nvm 등)를 사용하세요. `which node`가 `/mnt/c/...`를 가리키면 Windows용 Node.js입니다.
+- 프로젝트를 `/mnt/c/...`가 아닌 WSL 파일 시스템(`~/...`)에 clone하는 것을 권장합니다. `/mnt/c`에서는 설치와 서버 시작이 크게 느려지고, Windows 쪽에서 수정한 파일의 변경 감지(HMR)가 동작하지 않을 수 있습니다.
+- WSL에서 실행한 개발 서버는 Windows 브라우저에서 같은 주소(`http://127.0.0.1:5173/`)로 접속할 수 있습니다.
 
 터미널에 출력된 로컬 주소를 엽니다. 기본 주소는 `http://127.0.0.1:5173/`입니다. 포트가 사용 중이면 Vite가 다음 포트를 선택합니다.
 
